@@ -1,0 +1,28 @@
+<div>
+  <h1 class='title'>ACTIV Ideas</h1>
+  <div class='main-container'>
+    <div class="box1 box" *ngFor="let idea of ideas">
+      <div class="content">
+        <div class="image">
+          <img [src]="idea?.idea?.public?.image" [alt]="idea?.nftId" class='ticker-logo' />
+        </div>
+        <div class="level">
+          <p>{{idea?.idea?.idea?.kind || 'unknow'}}</p>
+        </div>
+        <div class="text">
+          <p class="name">{{idea?.idea?.idea?.asset?.ticker}}</p>
+          <p class="job_title">{{idea?.name}}</p>
+          <p class="job_discription">{{idea?.description}}</p>
+        </div>
+        <div class="button">
+          <div>
+            <button class="message" type="button" (click)="goToIPFSUrl(idea)">See IPFS
+              content</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <router-outlet></router-outlet> -->
