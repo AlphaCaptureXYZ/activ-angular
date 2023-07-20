@@ -1,5 +1,10 @@
 <div>
   <h1 class='title'>ACTIV Ideas</h1>
+
+  <div class="loading" *ngIf="loading">
+    <img src="./assets/loader.gif">
+  </div>
+
   <div class='main-container'>
     <div class="box1 box" *ngFor="let idea of ideas">
       <div class="content">

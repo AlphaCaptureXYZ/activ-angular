@@ -10,16 +10,19 @@ export class AppComponent {
   title = 'activ-angular';
 
   ideas: any[];
+  loading: boolean;
 
   constructor(
     private cRef: ChangeDetectorRef,
     private activService: ActivService,
   ) {
     this.ideas = [];
+    this.loading = false;
   }
 
   async ngOnInit() {
     this.cRef.detectChanges();
+    this.loading = true;
     await this.activService.init();
     await this.getIdeas();
   }
@@ -27,6 +30,7 @@ export class AppComponent {
   async getIdeas() {
     const getAllIdeas = await this.activService.getAllIdeas();
     this.ideas = getAllIdeas?.data;
+    this.loading = false;
     this.cRef.detectChanges();
   }
 
