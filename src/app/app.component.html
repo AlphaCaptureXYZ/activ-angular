@@ -9,15 +9,17 @@
     <div class="box1 box" *ngFor="let idea of ideas">
       <div class="content">
         <div class="image">
-          <img [src]="idea?.idea?.public?.image" [alt]="idea?.nftId" class='ticker-logo' />
+          <img [src]="idea?.idea?.public?.image || idea?.idea?.asset?.image?.b64"
+            [alt]="idea?.nftId" class='ticker-logo' />
         </div>
         <div class="level">
-          <p>{{idea?.idea?.idea?.kind || 'unknow'}}</p>
+          <p>{{(idea?.idea?.idea?.kind || idea?.idea?.kind || 'unknow') | titlecase}}</p>
         </div>
         <div class="text">
-          <p class="name">{{idea?.idea?.idea?.asset?.ticker}}</p>
-          <p class="job_title">{{idea?.name}}</p>
-          <p class="job_discription">{{idea?.description}}</p>
+          <p class="name">{{idea?.idea?.idea?.asset?.ticker || idea?.idea?.asset?.ticker}}</p>
+          <p class="job_title">{{(idea?.name || idea?.idea?.title) | titlecase}}</p>
+          <p class="job_discription">{{(idea?.description || idea?.idea?.notes?.commentary) |
+            titlecase}}</p>
         </div>
         <div class="button">
           <div>
