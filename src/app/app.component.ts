@@ -1,20 +1,22 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivService } from './services/activ.service';
+import { CONTRACT } from '@ixily/activ-web';
+import CI = CONTRACT.CONTRACT_INTERFACES;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'activ-angular';
 
-  ideas: any[];
+  ideas: CI.ITradeIdea[];
   loading: boolean;
 
   constructor(
     private cRef: ChangeDetectorRef,
-    private activService: ActivService,
+    private activService: ActivService
   ) {
     this.ideas = [];
     this.loading = false;

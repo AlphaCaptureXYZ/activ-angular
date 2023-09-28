@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import IXilyACTIV from '@ixily/activ-web';
+import { SDK } from '@ixily/activ-web';
+import V4 = SDK.v4;
 
 import { Router } from '@angular/router';
 
@@ -18,9 +20,7 @@ export class ActivService {
 
   private userWalletIsConnected: boolean;
 
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {
     this.activ = null as any;
     this.ethereum = null;
     this.userWalletIsConnected = false;
@@ -54,7 +54,6 @@ export class ActivService {
       let networkName: string = null as any;
 
       try {
-
         const accounts = await this.ethereum?.request({
           method: 'eth_requestAccounts',
         });
@@ -62,7 +61,6 @@ export class ActivService {
         this.userWalletIsConnected =
           accounts?.find((account: any) => account) || null ? true : false;
         networkName = await this.getNetworkName();
-
       } catch (err) {
         // console.error('ActivService userWalletIsConnected (error)', err.message);
       }
@@ -141,7 +139,7 @@ export class ActivService {
     let settings = null;
     try {
       settings = await this.activ.getSettings();
-    } catch (err) { }
+    } catch (err) {}
     return settings;
   }
 
@@ -155,9 +153,11 @@ export class ActivService {
 
   async getAllIdeas(page = 1, limit = 10) {
     // change according to your needs "userWalletIsConnected"
-    return this.userWalletIsConnected
-      ? this.activ.getAllIdeas(page, limit)
-      : this.activ.getAllIdeas(page, limit);
+    const ideas = this.userWalletIsConnected
+      ? await this.activ.getAccessibleIdeas(page, limit)
+      : await this.activ.getPublicIdeas(page, limit);
+    // await V4.ActivV4Module.restoreIdeasImages(ideas.data);
+    await this.activ.restoreIdeasImages(ideas.data);
+    return ideas;
   }
-
 }

@@ -1,30 +1,41 @@
 <div>
-  <h1 class='title'>ACTIV Ideas</h1>
+  <h1 class="title">ACTIV Ideas</h1>
 
   <div class="loading" *ngIf="loading">
-    <img src="./assets/loader.gif">
+    <img src="./assets/loader.gif" />
   </div>
 
-  <div class='main-container'>
+  <div class="main-container">
     <div class="box1 box" *ngFor="let idea of ideas">
       <div class="content">
         <div class="image">
-          <img [src]="idea?.idea?.public?.image || idea?.idea?.asset?.image?.b64"
-            [alt]="idea?.nftId" class='ticker-logo' />
+          <img
+            [src]="idea.idea.asset.image.b64"
+            [alt]="idea.nftId"
+            class="ticker-logo"
+          />
         </div>
         <div class="level">
-          <p>{{(idea?.idea?.idea?.kind || idea?.idea?.kind || 'unknow') | titlecase}}</p>
+          <p>
+            {{ idea.idea.kind }}
+          </p>
         </div>
         <div class="text">
-          <p class="name">{{idea?.idea?.idea?.asset?.ticker || idea?.idea?.asset?.ticker}}</p>
-          <p class="job_title">{{(idea?.name || idea?.idea?.title) | titlecase}}</p>
-          <p class="job_discription">{{(idea?.description || idea?.idea?.notes?.commentary) |
-            titlecase}}</p>
+          <p class="name">
+            {{ idea?.idea?.asset?.ticker }}
+          </p>
+          <p class="job_title">
+            {{ idea.idea.title }}
+          </p>
+          <p class="job_discription">
+            {{ idea.idea.notes.commentary }}
+          </p>
         </div>
         <div class="button">
           <div>
-            <button class="message" type="button" (click)="goToIPFSUrl(idea)">See IPFS
-              content</button>
+            <button class="message" type="button" (click)="goToIPFSUrl(idea)">
+              See IPFS content
+            </button>
           </div>
         </div>
       </div>
