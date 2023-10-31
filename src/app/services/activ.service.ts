@@ -154,8 +154,8 @@ export class ActivService {
   async getAllIdeas(page = 1, limit = 10) {
     // change according to your needs "userWalletIsConnected"
     const ideas = this.userWalletIsConnected
-      ? await this.activ.getAccessibleIdeas(page, limit)
-      : await this.activ.getPublicIdeas(page, limit);
+      ? await this.activ.listLatestPublicIdeas(page, limit)
+      : await this.activ.listLatestPublicIdeas(page, limit);
     // await V4.ActivV4Module.restoreIdeasImages(ideas.data);
     await this.activ.restoreIdeasImages(ideas.data);
     return ideas;
